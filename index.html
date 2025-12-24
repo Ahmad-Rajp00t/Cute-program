@@ -1,53 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>🌙 Lovely Night 🌧️</title>
   <style>
     body { 
-      background:#0a0f1c; 
-      color:#e0e0e0; 
-      font-family: monospace; 
-      text-align:center; 
-      padding:20px;
+      background: #0a0f1c; 
+      color: #e0e0e0; 
+      font-family: 'Courier New', monospace; 
+      text-align: center; 
+      padding: 40px 20px;
+      min-height: 100vh;
+    }
+    h1 {
+      color: #ffc0cb;
+      margin-bottom: 30px;
     }
     #output { 
       white-space: pre-wrap; 
       text-align: center; 
       margin: 0 auto; 
-      font-size: 18px; 
-      line-height: 1.8; 
+      font-size: 20px; 
+      line-height: 2; 
+    }
+    .final-love {
+      font-size: 50px;
+      color: #ff4d6d;
+      margin-top: 40px;
+      font-weight: bold;
+      text-shadow: 0 0 20px #ff4d6d;
+      animation: pulse 1.5s infinite;
+    }
+    .fade-in {
+      animation: fadeIn 2s forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
     }
   </style>
 </head>
 <body>
-  <h1>✨ For Talima 🎀 ✨</h1>
+  <h1>✨ For Hani 🎀 ✨</h1>
   <div id="output"></div>
 
   <script>
     const lines = [
-        "In Every Star, I Find You ✨🌙",
         "The night unfolds in velvet blue 🌌💙,",
         "Yet every glow reminds me of you 💫💕.",
         "The moon 🌙 may wane, the stars ⭐🌟 may fall,",
         "But your light ✨ outshines them all 🌹❤️.",
-
-        "Like gentle winds 🌬️ that kiss the sea 🌊,",
+        "", 
+        "Like gentle winds 🌬️ that kiss the sea 🌊",
         "Your presence lingers endlessly 🌺💭.",
-        "Even when dawn 🌅 steals night away,",
-        "Your soul paints gold 💛 on my every day 🌻.",
-
-        "So if the heavens 🌠 ever ask me why ❓,",
-        "I’ll say: because you’re my favorite sky 💖☁️💜."
+        "Even when dawn 🌅 steals night away",
+        "Your soul paints gold 💛 on my every day 🌻",
+        "", 
+        "So if the heavens 🌠 ever ask me why ❓",
+        "I’ll say: because you’re my favorite sky 💖☁️💜"
     ];
 
     const out = document.getElementById("output");
 
+    // Display the poem lines
     lines.forEach((line, i) => {
       setTimeout(() => {
-        out.textContent += line + "\n";
+        const lineElement = document.createElement("div");
+        lineElement.className = "fade-in";
+        lineElement.textContent = line;
+        out.appendChild(lineElement);
       }, i * 2500);
     });
+
+    // Display the big final heading at the very end
+    setTimeout(() => {
+      const loveHeader = document.createElement("h2");
+      loveHeader.className = "final-love fade-in";
+      loveHeader.textContent = "I LOVE YOU ❤️";
+      out.appendChild(loveHeader);
+    }, lines.length * 2500 + 1000);
   </script>
 </body>
 </html>
