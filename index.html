@@ -1,8 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <title>🌙 Lovely Night 🌧️</title>
+  <title>🌙 Прекрасная ночь 🌧️</title>
   <style>
     body { 
       background: #0a0f1c; 
@@ -45,29 +46,25 @@
     }
   </style>
 </head>
+
 <body>
-  <h1>✨ For Miraida🤍 ✨</h1>
+
+  <h1>✨ Для Мирайды🤍 ✨</h1>
   <div id="output"></div>
 
   <script>
     const lines = [
-        "The night unfolds in velvet blue 🌌💙,",
-        "Yet every glow reminds me of you 💫💕.",
-        "The moon 🌙 may wane, the stars ⭐🌟 may fall,",
-        "But your light ✨ outshines them all 🌹❤️.",
-        "", 
-        "Like gentle winds 🌬️ that kiss the sea 🌊",
-        "Your presence lingers endlessly 🌺💭.",
-        "Even when dawn 🌅 steals night away",
-        "Your soul paints gold 💛 on my every day 🌻",
-        "", 
-        "So if the heavens 🌠 ever ask me why ❓",
-        "I’ll say: because you’re my favorite sky 💖☁️💜"
+      "Я бы хотел иметь пять разных жизней вместо одной 🌍✨",
+      "Тогда, вместо того чтобы родиться в одном и том же городе 🏙️",
+      "Я мог бы родиться в пяти разных семьях 🤍👨‍👩‍👧‍👦",
+      "И каждая из них дала бы мне жизнь, полную любви 💞",
+      "",
+      "И в каждой из этих жизней… 🌙",
+      "Я влюбился бы в одного и того же человека 💖"
     ];
 
     const out = document.getElementById("output");
 
-    // Display the poem lines
     lines.forEach((line, i) => {
       setTimeout(() => {
         const lineElement = document.createElement("div");
@@ -77,14 +74,13 @@
       }, i * 2500);
     });
 
-    // Display the big final heading at the very end
     setTimeout(() => {
       const loveHeader = document.createElement("h2");
       loveHeader.className = "final-love fade-in";
-      loveHeader.textContent = "I LOVE YOU ❤️";
+      loveHeader.textContent = "Я ЛЮБЛЮ ТЕБЯ ❤️";
       out.appendChild(loveHeader);
     }, lines.length * 2500 + 1000);
   </script>
+
 </body>
 </html>
-
