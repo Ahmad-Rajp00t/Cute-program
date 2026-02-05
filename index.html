@@ -101,11 +101,11 @@
 
     .line {
       font-size: 22px;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
       opacity: 0;
-      filter: blur(5px);
+      filter: blur(8px);
       transform: translateY(20px);
-      transition: all 1.2s ease;
+      transition: all 1.5s ease;
     }
 
     .line.visible {
@@ -121,7 +121,7 @@
       font-weight: bold;
       text-shadow: 0 0 25px #ff4d6d;
       opacity: 0;
-      transition: opacity 2s ease;
+      transition: opacity 2.5s ease;
       padding-bottom: 100px;
     }
     
@@ -155,6 +155,7 @@
   </div>
 
   <script>
+    // Star generator
     const container = document.getElementById('stars-container');
     for (let i = 0; i < 120; i++) {
       const star = document.createElement('div');
@@ -169,6 +170,8 @@
       container.appendChild(star);
     }
 
+    // Timestamps relative to the START of the music (0.0)
+    // Note: Since you wanted the first text at 7s, I kept your values
     const lyricsData = [
       { text: "I wanna be your vacuum cleaner🧹", time: 7.0 },
       { text: "Breathing in your dust💨", time: 11.0 },
@@ -202,13 +205,13 @@
     final.textContent = "Я ТЕБЯ ЛЮБЛЮ 💘";
     out.appendChild(final);
 
-    let lyricsStarted = false;
+    let sequenceTriggered = false;
 
-    // This function starts the lyrics sequence
-    function startLyricsSequence() {
-      if (lyricsStarted) return; // Prevent double trigger
-      lyricsStarted = true;
+    function startVisualSequence() {
+      if (sequenceTriggered) return; 
+      sequenceTriggered = true;
 
+      // Start the lyrics timers only after the song is officially playing
       lyricsData.forEach((line, i) => {
         setTimeout(() => {
           const el = document.getElementById("l-" + i);
@@ -219,27 +222,33 @@
         }, line.time * 1000);
       });
 
+      // Final message at 48 seconds
       setTimeout(() => {
         final.classList.add("visible");
         final.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }, 48000); // Triggered slightly after the last line
+      }, 48500);
     }
 
     startBtn.onclick = () => {
-      // Hide start screen immediately
-      document.getElementById('start-screen').style.opacity = '0';
-      setTimeout(() => {
-        document.getElementById('start-screen').style.display = 'none';
-        document.getElementById('content-container').style.opacity = '1';
-      }, 1200);
+      // 1. Reset music to start and play
+      music.currentTime = 0;
+      music.volume = 1.0;
       
-      // Try to play the music
-      music.play().catch(e => console.log("Playback failed. Please interact with the page."));
+      music.play().then(() => {
+          // 2. Hide overlay only if music successfully starts
+          document.getElementById('start-screen').style.opacity = '0';
+          setTimeout(() => {
+            document.getElementById('start-screen').style.display = 'none';
+            document.getElementById('content-container').style.opacity = '1';
+          }, 1200);
+      }).catch(err => {
+          alert("Click again to play the song! 🎵");
+      });
     };
 
-    // CONDITION: Only start the text timers once the music has actually started playing
+    // THE CONDITION: Trigger timers ONLY when the audio play state starts
     music.onplay = () => {
-        startLyricsSequence();
+        startVisualSequence();
     };
   </script>
 </body>
