@@ -7,7 +7,7 @@
   <title>🌙 I Wanna Be Yours ✨</title>
   <style>
     body { 
-      background: radial-gradient(circle at center, #1b2735 0%, #090a0f 100%);
+      background: radial-gradient(circle at center, #0d121f 0%, #05070a 100%);
       color: #e0e0e0; 
       font-family: 'Courier New', monospace; 
       text-align: center; 
@@ -18,7 +18,7 @@
       position: relative;
     }
 
-    /* --- START SCREEN --- */
+    /* --- START OVERLAY --- */
     #start-screen {
       position: fixed;
       top: 0;
@@ -28,50 +28,47 @@
       background: #000;
       z-index: 999;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       transition: opacity 1.5s ease;
     }
     
     #start-btn {
-      padding: 20px 40px;
-      font-size: 20px;
-      background: rgba(255, 255, 255, 0.1);
-      color: white;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      backdrop-filter: blur(10px);
+      padding: 20px 50px;
+      font-size: 22px;
+      background: transparent;
+      color: #ffc0cb;
+      border: 2px solid #ffc0cb;
       border-radius: 50px;
       cursor: pointer;
-      box-shadow: 0 0 30px rgba(255, 77, 109, 0.3);
-      animation: pulse 2s infinite;
+      box-shadow: 0 0 20px rgba(255, 192, 203, 0.2);
+      transition: all 0.3s;
     }
 
-    /* --- CONTENT --- */
-    #content-container {
-      padding: 60px 20px;
-      opacity: 0;
-      transition: opacity 3s ease;
+    #start-btn:hover {
+      background: #ffc0cb;
+      color: #000;
+      box-shadow: 0 0 40px rgba(255, 192, 203, 0.6);
     }
 
-    h1 {
-      color: #ffc0cb;
-      font-size: 22px;
-      letter-spacing: 5px;
-      margin-bottom: 50px;
-      text-shadow: 0 0 15px rgba(255, 192, 203, 0.6);
-    }
-
-    /* --- MOON & STARS --- */
+    /* --- VISUALS --- */
     .moon {
       position: fixed;
-      top: 40px;
-      right: 10%;
-      width: 60px;
-      height: 60px;
+      top: 50px;
+      right: 12%;
+      width: 70px;
+      height: 70px;
       border-radius: 50%;
-      box-shadow: -12px 12px 0 2px #fdfae1;
-      filter: drop-shadow(0 0 15px #fdfae1);
+      box-shadow: -15px 15px 0 2px #fffce0;
+      filter: drop-shadow(0 0 20px #fffce0);
       z-index: 1;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(-5deg); }
+      50% { transform: translateY(-15px) rotate(5deg); }
     }
 
     .star {
@@ -83,48 +80,61 @@
     }
 
     @keyframes twinkle {
-      0%, 100% { opacity: 0.2; transform: scale(0.8); }
-      50% { opacity: 1; transform: scale(1.2); }
+      0%, 100% { opacity: 0.1; transform: scale(0.8); }
+      50% { opacity: 0.8; transform: scale(1.1); }
     }
 
-    /* --- LYRICS --- */
+    /* --- LYRICS LAYOUT --- */
+    #content-container {
+      padding: 100px 20px;
+      opacity: 0;
+      transition: opacity 2s ease;
+    }
+
+    h1 {
+      color: #ffc0cb;
+      letter-spacing: 8px;
+      margin-bottom: 60px;
+      font-size: 26px;
+      text-shadow: 0 0 10px rgba(255, 192, 203, 0.4);
+    }
+
     #output { 
-      margin: 0 auto; 
-      font-size: 22px; 
-      line-height: 2.5; 
-      max-width: 800px;
+      max-width: 900px;
+      margin: 0 auto;
     }
 
     .line {
+      font-size: 26px;
+      margin-bottom: 25px;
       opacity: 0;
-      filter: blur(5px);
-      transform: translateY(30px);
-      transition: all 1.5s cubic-bezier(0.4, 0, 0.2, 1);
-      margin-bottom: 20px;
+      filter: blur(8px);
+      transform: scale(0.9);
+      transition: all 2s cubic-bezier(0.17, 0.67, 0.83, 0.67);
     }
 
     .line.visible {
       opacity: 1;
       filter: blur(0);
-      transform: translateY(0);
+      transform: scale(1);
+      text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
     }
 
     .final-love {
-      font-size: 45px; 
+      font-size: 55px;
       color: #ff4d6d;
-      margin-top: 80px;
+      margin-top: 100px;
       font-weight: bold;
-      text-shadow: 0 0 20px #ff4d6d;
+      text-shadow: 0 0 30px #ff4d6d;
       opacity: 0;
-      transition: opacity 3s ease;
+      transition: opacity 4s ease;
     }
     
-    .final-love.visible { opacity: 1; }
+    .final-love.visible { opacity: 1; animation: pulse 2s infinite; }
 
     @keyframes pulse {
-      0% { transform: scale(1); box-shadow: 0 0 10px rgba(255, 77, 109, 0.3); }
-      50% { transform: scale(1.05); box-shadow: 0 0 30px rgba(255, 77, 109, 0.6); }
-      100% { transform: scale(1); box-shadow: 0 0 10px rgba(255, 77, 109, 0.3); }
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
     }
   </style>
 </head>
@@ -132,11 +142,11 @@
 <body>
 
   <div id="start-screen">
-    <button id="start-btn">✨ Открой ночное небо ✨</button>
+    <button id="start-btn">Нажми, Мирайда ✨</button>
   </div>
 
   <audio id="music">
-    <source src="https://files.catbox.moe/0v9vzu.mp3" type="audio/mpeg">
+    <source src="song.mp3" type="audio/mpeg">
   </audio>
 
   <div id="content-container">
@@ -147,41 +157,43 @@
   </div>
 
   <script>
-    const starsContainer = document.getElementById('stars-container');
+    // Star generator
+    const container = document.getElementById('stars-container');
     for (let i = 0; i < 150; i++) {
       const star = document.createElement('div');
       star.className = 'star';
       star.style.left = Math.random() * 100 + '%';
       star.style.top = Math.random() * 100 + '%';
-      const size = Math.random() * 2 + 1;
+      const size = Math.random() * 2 + 0.5;
       star.style.width = size + 'px';
       star.style.height = size + 'px';
       star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
       star.style.animationDelay = Math.random() * 5 + 's';
-      starsContainer.appendChild(star);
+      container.appendChild(star);
     }
 
-    // Precise timestamps for the song "I Wanna Be Yours"
+    // Timestamps for synchronization
     const lyricsData = [
       { text: "I wanna be your vacuum cleaner", time: 13.0 },
-      { text: "Breathing in your dust", time: 16.5 },
-      { text: "I wanna be your Ford Cortina", time: 20.0 },
+      { text: "Breathing in your dust", time: 16.8 },
+      { text: "I wanna be your Ford Cortina", time: 20.2 },
       { text: "I will never rust", time: 24.0 },
-      { text: "If you like your coffee hot", time: 27.5 },
-      { text: "Let me be your coffee pot", time: 31.0 },
-      { text: "You call the shots, babe", time: 35.0 },
-      { text: "I just wanna be yours", time: 38.5 },
-      { text: "Secrets I have held in my heart", time: 48.5 },
-      { text: "Are harder to hide than I thought", time: 52.5 },
-      { text: "Maybe I just wanna be yours", time: 56.5 },
-      { text: "I wanna be yours", time: 59.5 },
-      { text: "I wanna be yours", time: 61.5 }
+      { text: "If you like your coffee hot", time: 27.8 },
+      { text: "Let me be your coffee pot", time: 31.5 },
+      { text: "You call the shots, babe", time: 35.2 },
+      { text: "I just wanna be yours", time: 39.0 },
+      { text: "Secrets I have held in my heart", time: 49.0 },
+      { text: "Are harder to hide than I thought", time: 52.8 },
+      { text: "Maybe I just wanna be yours", time: 57.0 },
+      { text: "I wanna be yours", time: 60.5 },
+      { text: "I wanna be yours", time: 63.5 }
     ];
 
     const startBtn = document.getElementById('start-btn');
     const music = document.getElementById('music');
     const out = document.getElementById("output");
 
+    // Build the lines
     lyricsData.forEach((line, i) => {
       const div = document.createElement("div");
       div.className = "line";
@@ -210,10 +222,11 @@
         }, line.time * 1000);
       });
 
+      // Show final message at the chorus
       setTimeout(() => {
         final.classList.add("visible");
         final.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }, 65000);
+      }, 66000);
     };
   </script>
 </body>
